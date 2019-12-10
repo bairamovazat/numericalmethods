@@ -67,7 +67,7 @@ public class NumericalMethodsDouble implements NumericalMethods {
                                 .collect(Collectors.toList())
                 )
         );
-        LineGraph lineGraph = new LineGraph(simpleLines, "Время", "Численность", "Зависимость численности от времени для тестовой задачи");
+        LineGraph lineGraph = new LineGraph(simpleLines, "Время", "Численность", "Зависимость численности от времени для тестовой задачи", true);
         lineGraph.setVisible(true);
     }
 
@@ -113,7 +113,7 @@ public class NumericalMethodsDouble implements NumericalMethods {
                 )
         );
 
-        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e", "Зависимость ошибки от шага h");
+        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e", "Зависимость ошибки от шага h", true);
         lineGraph.setVisible(true);
     }
 
@@ -130,12 +130,12 @@ public class NumericalMethodsDouble implements NumericalMethods {
             stepList.add(currentStep);
             maxErrorX.add(
                     BigDecimal.valueOf(ErrorUtils.getMaxXError(modelTraysVolterra, (t) -> t / 3.0))
-                            .divide(BigDecimal.valueOf(currentStep).pow(4), RoundingMode.HALF_UP)
+                            .divide(BigDecimal.valueOf(currentStep).pow(2), RoundingMode.HALF_UP)
                             .doubleValue()
             );
             maxErrorY.add(
                     BigDecimal.valueOf(ErrorUtils.getMaxYError(modelTraysVolterra, (t) -> -t / 3.0))
-                            .divide(BigDecimal.valueOf(currentStep).pow(4), RoundingMode.HALF_UP)
+                            .divide(BigDecimal.valueOf(currentStep).pow(2), RoundingMode.HALF_UP)
                             .doubleValue()
             );
         }
@@ -157,22 +157,18 @@ public class NumericalMethodsDouble implements NumericalMethods {
                 )
         );
 
-        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e/h^4", "Зависимость ошибки от шага h^4");
+        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e/h^4", "Зависимость ошибки от шага h^4", true);
         lineGraph.setVisible(true);
     }
 
-    public void studySchedule(double a, double b, double c, double d, double lastC, double cStep, double xStart, double yStart, double startTime, double endTime, double step) {
+    public void studySchedule(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step) {
 
-
-
-        for (double newC = c; newC > lastC; newC -= cStep) {
+        for (double currentA = a; currentA > lastA; currentA -= aStep) {
             Argument<Row<Double>> zeroState = new ArgumentImpl(
                     new Row<Double>(xStart, yStart)
             );
-            Sheep<Double> sheep = new Sheep<>(a, b);
-            Wolf<Double> wolf = new Wolf<>(newC, d);
 
-            Function<Row<Double>> rowFunction = new AnimalFunction(wolf, sheep);
+            Function<Row<Double>> rowFunction = new UnsizedFunction(currentA);
             CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
             ModelTraysVolterra<Row<Double>> modelTraysVolterra = new ModelTraysVolterra<>(chekinskyMethod, zeroState);
 
@@ -183,16 +179,17 @@ public class NumericalMethodsDouble implements NumericalMethods {
                     new SimpleLine("X/Y",
                             Color.BLUE,
                             modelTraysVolterra.getValues()
-                                    .stream().map(e -> e.getX() * d / a)
+                                    .stream().map(e -> e.getX())
                                     .collect(Collectors.toList()) ,
                             modelTraysVolterra.getValues()
-                                    .stream().map(e -> e.getY() * a / b)
+                                    .stream().map(e -> e.getY())
                                     .collect(Collectors.toList())
                     )
             );
 
 
-            LineGraph lineGraph = new LineGraph(simpleLines, "X", "Y", "Зависимость X/Y");
+            LineGraph lineGraph = new LineGraph(simpleLines, "X", "Y", "Зависимость X/Y", false);
+            lineGraph.setLine(false);
             lineGraph.setVisible(true);
         }
     }

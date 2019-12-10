@@ -12,6 +12,5 @@ public interface NumericalMethods {
 
     public void errorsEh4(double start, double end, double startStep, double endStep, java.util.function.Function<Double, Double> getNextStep);
 
-    public void studySchedule(double a, double b, double c, double d, double lastC, double cStep, double xStart, double yStart, double startTime, double endTime, double step);
-
+    public void studySchedule(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step);
     }

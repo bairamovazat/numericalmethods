@@ -1,6 +1,5 @@
 package ru.ivmiit.azat.numericalmethods.model;
 
-import jdk.nashorn.internal.runtime.logging.Logger;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -43,7 +43,7 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
 
                 )
         );
-        LineGraph lineGraph = new LineGraph(simpleLines, "Время", "Численность", "Зависимость численности от времени для тестовой задачи");
+        LineGraph lineGraph = new LineGraph(simpleLines, "Время", "Численность", "Зависимость численности от времени для тестовой задачи", true);
         lineGraph.setVisible(true);
     }
 
@@ -89,7 +89,7 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
                 )
         );
 
-        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e", "Зависимость ошибки от шага h");
+        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e", "Зависимость ошибки от шага h", true);
         lineGraph.setVisible(true);
     }
 
@@ -133,12 +133,12 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
                 )
         );
 
-        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e/h^4", "Зависимость ошибки от шага h^4");
+        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e/h^4", "Зависимость ошибки от шага h^4", true);
         lineGraph.setVisible(true);
     }
 
     @Override
-    public void studySchedule(double a, double b, double c, double d, double lastC, double cStep, double xStart, double yStart, double startTime, double endTime, double step) {
-        return;
+    public void studySchedule(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step) {
+
     }
 }
