@@ -1,4 +1,4 @@
-package ru.ivmiit.azat.numericalmethods.methods;
+package ru.ivmiit.azat.numericalmethods.model;
 
 import lombok.*;
 

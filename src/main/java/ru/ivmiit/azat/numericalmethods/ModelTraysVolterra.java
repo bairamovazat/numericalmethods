@@ -1,11 +1,8 @@
 package ru.ivmiit.azat.numericalmethods;
 
 import lombok.Getter;
-import ru.ivmiit.azat.numericalmethods.methods.Argument;
+import ru.ivmiit.azat.numericalmethods.model.Argument;
 import ru.ivmiit.azat.numericalmethods.methods.CauchysProblemMethod;
-import ru.ivmiit.azat.numericalmethods.methods.Row;
-import ru.ivmiit.azat.numericalmethods.model.PredatorModel;
-import ru.ivmiit.azat.numericalmethods.model.VictimModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +39,12 @@ public class ModelTraysVolterra<T> implements CauchysProblem {
         values.add(current.getValue());
         time.add(currentTime);
 
-        currentTime += step;
 
         for (int i = 1; i < iterationCount; i++) {
             current = method.next(currentTime, current, step, i);
             values.add(current.getValue());
-            time.add(currentTime);
             currentTime += step;
+            time.add(currentTime);
         }
         return current;
     }
@@ -62,13 +58,12 @@ public class ModelTraysVolterra<T> implements CauchysProblem {
         values.add(current.getValue());
         time.add(currentTime);
 
-        currentTime += step;
         int iteration = 0;
         while (currentTime <= end) {
             current = method.next(currentTime, current, step, ++iteration);
             values.add(current.getValue());
-            time.add(currentTime);
             currentTime += step;
+            time.add(currentTime);
         }
         return current;
     }

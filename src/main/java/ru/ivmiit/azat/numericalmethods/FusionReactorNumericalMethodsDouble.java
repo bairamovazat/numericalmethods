@@ -1,12 +1,15 @@
 package ru.ivmiit.azat.numericalmethods;
 
 import ru.ivmiit.azat.numericalmethods.function.Function;
-import ru.ivmiit.azat.numericalmethods.function.FunctionBigDecimalImpl;
+import ru.ivmiit.azat.numericalmethods.function.FunctionImpl;
+import ru.ivmiit.azat.numericalmethods.function.FusionReactorFunctionImpl;
+import ru.ivmiit.azat.numericalmethods.function.UnsizedFunction;
 import ru.ivmiit.azat.numericalmethods.graph.LineGraph;
 import ru.ivmiit.azat.numericalmethods.graph.SimpleLine;
-import ru.ivmiit.azat.numericalmethods.methods.*;
+import ru.ivmiit.azat.numericalmethods.methods.CauchysProblemMethod;
+import ru.ivmiit.azat.numericalmethods.methods.CheskinoMethod;
 import ru.ivmiit.azat.numericalmethods.model.Argument;
-import ru.ivmiit.azat.numericalmethods.model.ArgumentBigDecimalImpl;
+import ru.ivmiit.azat.numericalmethods.model.ArgumentImpl;
 import ru.ivmiit.azat.numericalmethods.model.Row;
 import ru.ivmiit.azat.numericalmethods.utils.ErrorUtils;
 
@@ -17,67 +20,73 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NumericalMethodsBigInteger implements NumericalMethods {
+public class FusionReactorNumericalMethodsDouble implements NumericalMethods {
+    private java.util.function.Function<Double, Double> xTryValue = (t) -> Math.cos(t) / (Math.sqrt(1 + Math.exp(2 * t)));
+
+    private java.util.function.Function<Double, Double> yTryValue = (t) -> Math.sin(t) / (Math.sqrt(1 + Math.exp(2 * t)));
+
     //Нарисовать график для тестирования
     public void testTaskCalculate(double start, double end, int iterationCount) {
-
-        ModelTraysVolterra<Row<BigDecimal>> modelTraysVolterra = getDefaultModel(start / 3.0, -start / 3.0);
+        Argument<Row<Double>> zeroState = new ArgumentImpl(
+                new Row<Double>(xTryValue.apply(start), yTryValue.apply(start))
+        );
+        Function<Row<Double>> rowFunction = new FusionReactorFunctionImpl();
+        CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
+        ModelTraysVolterra<Row<Double>> modelTraysVolterra = new ModelTraysVolterra<>(chekinskyMethod, zeroState);
 
         modelTraysVolterra.calculate(start, iterationCount, (end - start) / iterationCount);
 
         List<SimpleLine> simpleLines = new ArrayList<>();
         simpleLines.add(
-                new SimpleLine("Жертвы",
+                new SimpleLine("Реактор Х",
                         Color.BLUE,
                         modelTraysVolterra.getTime(),
                         modelTraysVolterra.getValues()
-                                .stream()
-                                .map(e -> e.getX().doubleValue())
+                                .stream().map(Row::getX)
                                 .collect(Collectors.toList())
                 )
         );
 
         simpleLines.add(
-                new SimpleLine("Хищники",
+                new SimpleLine("Реактор У",
                         Color.RED,
                         modelTraysVolterra.getTime(),
                         modelTraysVolterra.getValues()
-                                .stream()
-                                .map(e -> e.getY().doubleValue())
+                                .stream().map(Row::getY)
                                 .collect(Collectors.toList())
 
                 )
         );
 
         simpleLines.add(
-                new SimpleLine("Жертвы (Правильное решение)",
+                new SimpleLine("Реактор Х(Правильное решение)",
                         Color.CYAN,
                         modelTraysVolterra.getTime(),
                         modelTraysVolterra.getTime().stream()
-                                .map(e -> e / 3.0)
+                                .map(t -> xTryValue.apply(t))
                                 .collect(Collectors.toList())
                 )
         );
 
         simpleLines.add(
-                new SimpleLine("Хищники (Правильное решение)",
+                new SimpleLine("Реактор У(Правильное решение)",
                         Color.ORANGE,
                         modelTraysVolterra.getTime(),
                         modelTraysVolterra.getTime().stream()
-                                .map(e -> e / -3.0)
+                                .map(t -> yTryValue.apply(t))
                                 .collect(Collectors.toList())
                 )
         );
-        LineGraph lineGraph = new LineGraph(simpleLines, "Время", "Численность", "Зависимость численности от времени для тестовой задачи", true);
+        LineGraph lineGraph = new LineGraph(simpleLines, "Время", "Реактор Х/У", "Зависимость Реактор Х/У от времени для тестовой задачи", true);
         lineGraph.setVisible(true);
     }
 
-    public ModelTraysVolterra<Row<BigDecimal>> getDefaultModel(double defaultX, double defaultY) {
-        Argument<Row<BigDecimal>> zeroState = new ArgumentBigDecimalImpl(
-                new Row<BigDecimal>(BigDecimal.valueOf(defaultX), BigDecimal.valueOf(defaultY))
+    public ModelTraysVolterra<Row<Double>> getDefaultModel(double defaultX, double defaultY) {
+        Argument<Row<Double>> zeroState = new ArgumentImpl(
+                new Row<Double>(defaultX, defaultY)
         );
-        Function<Row<BigDecimal>> rowFunction = new FunctionBigDecimalImpl();
-        CauchysProblemMethod<Row<BigDecimal>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
+        Function<Row<Double>> rowFunction = new FusionReactorFunctionImpl();
+        CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
         return new ModelTraysVolterra<>(chekinskyMethod, zeroState);
     }
 
@@ -90,16 +99,16 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
 
         double currentStep = startStep;
         while ((currentStep = getNextStep.apply(currentStep)) > endStep) {
-            ModelTraysVolterra<Row<BigDecimal>> modelTraysVolterra = getDefaultModel(start / 3.0, -start / 3.0);
+            ModelTraysVolterra<Row<Double>> modelTraysVolterra = getDefaultModel(xTryValue.apply(start), yTryValue.apply(start));
             modelTraysVolterra.calculate(start, end, currentStep);
             stepList.add(currentStep);
-            maxErrorX.add(ErrorUtils.getMaxXErrorBigDecimal(modelTraysVolterra, (t) -> t / 3.0));
-            maxErrorY.add(ErrorUtils.getMaxYErrorBigDecimal(modelTraysVolterra, (t) -> -t / 3.0));
+            maxErrorX.add(ErrorUtils.getMaxXError(modelTraysVolterra, (t) -> xTryValue.apply(t)));
+            maxErrorY.add(ErrorUtils.getMaxYError(modelTraysVolterra, (t) -> yTryValue.apply(t)));
         }
 
         List<SimpleLine> simpleLines = new ArrayList<>();
         simpleLines.add(
-                new SimpleLine("Жертвы",
+                new SimpleLine("Реактор Х",
                         Color.BLUE,
                         stepList,
                         maxErrorX
@@ -107,7 +116,7 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
         );
 
         simpleLines.add(
-                new SimpleLine("Хищники",
+                new SimpleLine("Реактор У",
                         Color.RED,
                         stepList,
                         maxErrorY
@@ -126,16 +135,16 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
 
         double currentStep = startStep;
         while ((currentStep = getNextStep.apply(currentStep)) > endStep) {
-            ModelTraysVolterra<Row<BigDecimal>> modelTraysVolterra = getDefaultModel(start / 3.0, -start / 3.0);
+            ModelTraysVolterra<Row<Double>> modelTraysVolterra = getDefaultModel(xTryValue.apply(start), yTryValue.apply(start));
             modelTraysVolterra.calculate(start, end, currentStep);
             stepList.add(currentStep);
             maxErrorX.add(
-                    BigDecimal.valueOf(ErrorUtils.getMaxXErrorBigDecimal(modelTraysVolterra, (t) -> t / 3.0))
+                    BigDecimal.valueOf(ErrorUtils.getMaxXError(modelTraysVolterra, (t) -> xTryValue.apply(t)))
                             .divide(BigDecimal.valueOf(currentStep).pow(4), RoundingMode.HALF_UP)
                             .doubleValue()
             );
             maxErrorY.add(
-                    BigDecimal.valueOf(ErrorUtils.getMaxYErrorBigDecimal(modelTraysVolterra, (t) -> -t / 3.0))
+                    BigDecimal.valueOf(ErrorUtils.getMaxYError(modelTraysVolterra, (t) -> yTryValue.apply(t)))
                             .divide(BigDecimal.valueOf(currentStep).pow(4), RoundingMode.HALF_UP)
                             .doubleValue()
             );
@@ -143,7 +152,7 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
 
         List<SimpleLine> simpleLines = new ArrayList<>();
         simpleLines.add(
-                new SimpleLine("Жертвы",
+                new SimpleLine("Реактор Х",
                         Color.BLUE,
                         stepList,
                         maxErrorX
@@ -151,7 +160,7 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
         );
 
         simpleLines.add(
-                new SimpleLine("Хищники",
+                new SimpleLine("Реактор У",
                         Color.RED,
                         stepList,
                         maxErrorY
@@ -162,8 +171,36 @@ public class NumericalMethodsBigInteger implements NumericalMethods {
         lineGraph.setVisible(true);
     }
 
-    @Override
     public void studySchedule(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step) {
 
+//        for (double currentA = a; currentA > lastA; currentA -= aStep) {
+//            Argument<Row<Double>> zeroState = new ArgumentImpl(
+//                    new Row<Double>(xStart, yStart)
+//            );
+//
+//            Function<Row<Double>> rowFunction = new UnsizedFunction(currentA);
+//            CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
+//            ModelTraysVolterra<Row<Double>> modelTraysVolterra = new ModelTraysVolterra<>(chekinskyMethod, zeroState);
+//
+//            modelTraysVolterra.calculate(startTime, endTime, step);
+//
+//            List<SimpleLine> simpleLines = new ArrayList<>();
+//            simpleLines.add(
+//                    new SimpleLine("X/Y",
+//                            Color.BLUE,
+//                            modelTraysVolterra.getValues()
+//                                    .stream().map(Row::getX)
+//                                    .collect(Collectors.toList()) ,
+//                            modelTraysVolterra.getValues()
+//                                    .stream().map(Row::getY)
+//                                    .collect(Collectors.toList())
+//                    )
+//            );
+//
+//
+//            LineGraph lineGraph = new LineGraph(simpleLines, "X", "Y", "Зависимость X/Y", false);
+//            lineGraph.setLine(false);
+//            lineGraph.setVisible(true);
+//        }
     }
 }

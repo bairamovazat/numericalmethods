@@ -1,4 +1,8 @@
-package ru.ivmiit.azat.numericalmethods.methods;
+package ru.ivmiit.azat.numericalmethods.function;
+
+import ru.ivmiit.azat.numericalmethods.model.Argument;
+import ru.ivmiit.azat.numericalmethods.model.ArgumentImpl;
+import ru.ivmiit.azat.numericalmethods.model.Row;
 
 public class FunctionImpl implements Function<Row<Double>> {
 
@@ -6,9 +10,9 @@ public class FunctionImpl implements Function<Row<Double>> {
         return new ArgumentImpl(
                 new Row<Double>(
                         //-y/t
-                        -1 * value.getValue().getY() / time,
+                        -value.getValue().getY() / time,
                         //-x/t
-                        -1 * value.getValue().getX() / time
+                        -value.getValue().getX() / time
                 )
         );
     }

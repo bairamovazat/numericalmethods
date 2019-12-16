@@ -1,5 +1,8 @@
-package ru.ivmiit.azat.numericalmethods.methods;
+package ru.ivmiit.azat.numericalmethods.function;
 
+import ru.ivmiit.azat.numericalmethods.model.Row;
+import ru.ivmiit.azat.numericalmethods.model.Argument;
+import ru.ivmiit.azat.numericalmethods.model.ArgumentImpl;
 import ru.ivmiit.azat.numericalmethods.model.PredatorModel;
 import ru.ivmiit.azat.numericalmethods.model.VictimModel;
 

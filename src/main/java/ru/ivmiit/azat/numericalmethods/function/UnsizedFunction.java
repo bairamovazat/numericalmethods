@@ -1,4 +1,8 @@
-package ru.ivmiit.azat.numericalmethods.methods;
+package ru.ivmiit.azat.numericalmethods.function;
+
+import ru.ivmiit.azat.numericalmethods.model.Argument;
+import ru.ivmiit.azat.numericalmethods.model.ArgumentImpl;
+import ru.ivmiit.azat.numericalmethods.model.Row;
 
 public class UnsizedFunction implements Function<Row<Double>> {
 
@@ -6,7 +10,6 @@ public class UnsizedFunction implements Function<Row<Double>> {
 
     public UnsizedFunction(double a_) {
         this.a_ = a_;
-
     }
 
     @Override

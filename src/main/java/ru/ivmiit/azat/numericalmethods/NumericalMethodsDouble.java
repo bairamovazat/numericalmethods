@@ -1,10 +1,12 @@
 package ru.ivmiit.azat.numericalmethods;
 
+import ru.ivmiit.azat.numericalmethods.function.Function;
+import ru.ivmiit.azat.numericalmethods.function.FunctionImpl;
+import ru.ivmiit.azat.numericalmethods.function.UnsizedFunction;
 import ru.ivmiit.azat.numericalmethods.graph.LineGraph;
 import ru.ivmiit.azat.numericalmethods.graph.SimpleLine;
 import ru.ivmiit.azat.numericalmethods.methods.*;
-import ru.ivmiit.azat.numericalmethods.model.Sheep;
-import ru.ivmiit.azat.numericalmethods.model.Wolf;
+import ru.ivmiit.azat.numericalmethods.model.*;
 import ru.ivmiit.azat.numericalmethods.utils.ErrorUtils;
 
 import java.awt.*;
@@ -130,12 +132,12 @@ public class NumericalMethodsDouble implements NumericalMethods {
             stepList.add(currentStep);
             maxErrorX.add(
                     BigDecimal.valueOf(ErrorUtils.getMaxXError(modelTraysVolterra, (t) -> t / 3.0))
-                            .divide(BigDecimal.valueOf(currentStep).pow(2), RoundingMode.HALF_UP)
+                            .divide(BigDecimal.valueOf(currentStep).pow(4), RoundingMode.HALF_UP)
                             .doubleValue()
             );
             maxErrorY.add(
                     BigDecimal.valueOf(ErrorUtils.getMaxYError(modelTraysVolterra, (t) -> -t / 3.0))
-                            .divide(BigDecimal.valueOf(currentStep).pow(2), RoundingMode.HALF_UP)
+                            .divide(BigDecimal.valueOf(currentStep).pow(4), RoundingMode.HALF_UP)
                             .doubleValue()
             );
         }

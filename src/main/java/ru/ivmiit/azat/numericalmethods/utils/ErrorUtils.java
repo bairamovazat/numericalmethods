@@ -1,17 +1,16 @@
 package ru.ivmiit.azat.numericalmethods.utils;
 
 import ru.ivmiit.azat.numericalmethods.ModelTraysVolterra;
-import ru.ivmiit.azat.numericalmethods.methods.Row;
+import ru.ivmiit.azat.numericalmethods.model.Row;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 public class ErrorUtils {
     public static double getMaxXError(ModelTraysVolterra<Row<Double>> modelTraysVolterra, Function<Double, Double> xOfTFunction) {
-       return getMaxError(modelTraysVolterra, xOfTFunction, Row::getX);
+        return getMaxError(modelTraysVolterra, xOfTFunction, Row::getX);
     }
 
     public static double getMaxYError(ModelTraysVolterra<Row<Double>> modelTraysVolterra, Function<Double, Double> yOfTFunction) {

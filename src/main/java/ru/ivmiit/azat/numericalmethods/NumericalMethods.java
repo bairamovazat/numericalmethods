@@ -1,9 +1,5 @@
 package ru.ivmiit.azat.numericalmethods;
 
-import ru.ivmiit.azat.numericalmethods.methods.Row;
-
-import java.math.BigDecimal;
-
 public interface NumericalMethods {
 
     public void testTaskCalculate(double start, double end, int iterationCount);
