@@ -7,7 +7,7 @@ import ru.ivmiit.azat.numericalmethods.function.UnsizedFunction;
 import ru.ivmiit.azat.numericalmethods.graph.LineGraph;
 import ru.ivmiit.azat.numericalmethods.graph.SimpleLine;
 import ru.ivmiit.azat.numericalmethods.methods.CauchysProblemMethod;
-import ru.ivmiit.azat.numericalmethods.methods.CheskinoMethod;
+import ru.ivmiit.azat.numericalmethods.methods.RungeKuttaMethod;
 import ru.ivmiit.azat.numericalmethods.model.Argument;
 import ru.ivmiit.azat.numericalmethods.model.ArgumentImpl;
 import ru.ivmiit.azat.numericalmethods.model.Row;
@@ -31,7 +31,7 @@ public class FusionReactorNumericalMethodsDouble implements NumericalMethods {
                 new Row<Double>(xTryValue.apply(start), yTryValue.apply(start))
         );
         Function<Row<Double>> rowFunction = new FusionReactorFunctionImpl();
-        CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
+        CauchysProblemMethod<Row<Double>> chekinskyMethod = new RungeKuttaMethod<>(rowFunction);
         ModelTraysVolterra<Row<Double>> modelTraysVolterra = new ModelTraysVolterra<>(chekinskyMethod, zeroState);
 
         modelTraysVolterra.calculate(start, iterationCount, (end - start) / iterationCount);
@@ -86,7 +86,7 @@ public class FusionReactorNumericalMethodsDouble implements NumericalMethods {
                 new Row<Double>(defaultX, defaultY)
         );
         Function<Row<Double>> rowFunction = new FusionReactorFunctionImpl();
-        CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
+        CauchysProblemMethod<Row<Double>> chekinskyMethod = new RungeKuttaMethod<>(rowFunction);
         return new ModelTraysVolterra<>(chekinskyMethod, zeroState);
     }
 
@@ -179,7 +179,7 @@ public class FusionReactorNumericalMethodsDouble implements NumericalMethods {
 //            );
 //
 //            Function<Row<Double>> rowFunction = new UnsizedFunction(currentA);
-//            CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
+//            CauchysProblemMethod<Row<Double>> chekinskyMethod = new RungeKuttaMethod<>(rowFunction);
 //            ModelTraysVolterra<Row<Double>> modelTraysVolterra = new ModelTraysVolterra<>(chekinskyMethod, zeroState);
 //
 //            modelTraysVolterra.calculate(startTime, endTime, step);
