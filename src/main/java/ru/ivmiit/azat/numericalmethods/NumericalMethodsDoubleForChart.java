@@ -5,23 +5,31 @@ import ru.ivmiit.azat.numericalmethods.function.FunctionImpl;
 import ru.ivmiit.azat.numericalmethods.function.UnsizedFunction;
 import ru.ivmiit.azat.numericalmethods.graph.LineGraph;
 import ru.ivmiit.azat.numericalmethods.graph.SimpleLine;
-import ru.ivmiit.azat.numericalmethods.methods.*;
-import ru.ivmiit.azat.numericalmethods.model.*;
+import ru.ivmiit.azat.numericalmethods.methods.CauchysProblemMethod;
+import ru.ivmiit.azat.numericalmethods.methods.CheskinoMethod;
+import ru.ivmiit.azat.numericalmethods.model.Argument;
+import ru.ivmiit.azat.numericalmethods.model.ArgumentImpl;
+import ru.ivmiit.azat.numericalmethods.model.Row;
+import ru.ivmiit.azat.numericalmethods.ui.LineAnimatedGraphChart;
+import ru.ivmiit.azat.numericalmethods.ui.LineGraphChart;
 import ru.ivmiit.azat.numericalmethods.utils.ErrorUtils;
 
+import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NumericalMethodsDouble implements NumericalMethods {
+public class NumericalMethodsDoubleForChart implements NumericalMethodsForChart {
     private Function<Row<Double>> rowFunction = new FunctionImpl();
     private CauchysProblemMethod<Row<Double>> problemMethod = new CheskinoMethod<>(rowFunction);
 
     //Нарисовать график для тестирования
-    public void testTaskCalculate(double start, double end, int iterationCount) {
+    public void testTaskCalculateAndShowDialog(double start, double end, int iterationCount, JFrame jFrame) {
         Argument<Row<Double>> zeroState = new ArgumentImpl(
                 new Row<Double>(start / 3.0, -start / 3.0)
         );
@@ -31,7 +39,7 @@ public class NumericalMethodsDouble implements NumericalMethods {
 
         List<SimpleLine> simpleLines = new ArrayList<>();
         simpleLines.add(
-                new SimpleLine("Жертвы",
+                new SimpleLine("Жертвы(X)",
                         Color.BLUE,
                         modelTraysVolterra.getTime(),
                         modelTraysVolterra.getValues()
@@ -41,7 +49,7 @@ public class NumericalMethodsDouble implements NumericalMethods {
         );
 
         simpleLines.add(
-                new SimpleLine("Хищники",
+                new SimpleLine("Хищники(Y)",
                         Color.RED,
                         modelTraysVolterra.getTime(),
                         modelTraysVolterra.getValues()
@@ -70,8 +78,10 @@ public class NumericalMethodsDouble implements NumericalMethods {
                                 .collect(Collectors.toList())
                 )
         );
-        LineGraph lineGraph = new LineGraph(simpleLines, "Время", "Численность", "Зависимость численности от времени для тестовой задачи", true);
+        LineGraphChart lineGraph = new LineGraphChart(simpleLines, "Время", "Численность", "Зависимость численности от времени для тестовой задачи", true);
+        lineGraph.pack();
         lineGraph.setVisible(true);
+
     }
 
     public ModelTraysVolterra<Row<Double>> getDefaultModel(double defaultX, double defaultY) {
@@ -82,7 +92,7 @@ public class NumericalMethodsDouble implements NumericalMethods {
     }
 
     //startStep > endStep
-    public void errorsE(double start, double end, double startStep, double endStep, java.util.function.Function<Double, Double> getNextStep) {
+    public void errorsEAndShowDialog(double start, double end, double startStep, double endStep, java.util.function.Function<Double, Double> getNextStep, JFrame jFrame) {
 
         List<Double> stepList = new ArrayList<>();
         List<Double> maxErrorX = new ArrayList<>();
@@ -99,7 +109,7 @@ public class NumericalMethodsDouble implements NumericalMethods {
 
         List<SimpleLine> simpleLines = new ArrayList<>();
         simpleLines.add(
-                new SimpleLine("Жертвы",
+                new SimpleLine("Жертвы(X)",
                         Color.BLUE,
                         stepList,
                         maxErrorX
@@ -107,18 +117,19 @@ public class NumericalMethodsDouble implements NumericalMethods {
         );
 
         simpleLines.add(
-                new SimpleLine("Хищники",
+                new SimpleLine("Хищники(Y)",
                         Color.RED,
                         stepList,
                         maxErrorY
                 )
         );
 
-        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e", "Зависимость ошибки от шага h", true);
+        LineGraphChart lineGraph = new LineGraphChart(simpleLines, "Шаг h", "Ошибка: e", "Зависимость ошибки от шага h", true);
+        lineGraph.pack();
         lineGraph.setVisible(true);
     }
 
-    public void errorsEh4(double start, double end, double startStep, double endStep, java.util.function.Function<Double, Double> getNextStep) {
+    public void errorsEh4AndShowDialog(double start, double end, double startStep, double endStep, int pow, java.util.function.Function<Double, Double> getNextStep, JFrame jFrame) {
 
         List<Double> stepList = new ArrayList<>();
         List<Double> maxErrorX = new ArrayList<>();
@@ -131,19 +142,19 @@ public class NumericalMethodsDouble implements NumericalMethods {
             stepList.add(currentStep);
             maxErrorX.add(
                     BigDecimal.valueOf(ErrorUtils.getMaxXError(modelTraysVolterra, (t) -> t / 3.0))
-                            .divide(BigDecimal.valueOf(currentStep).pow(4), RoundingMode.HALF_UP)
+                            .divide(BigDecimal.valueOf(currentStep).pow(pow), RoundingMode.HALF_UP)
                             .doubleValue()
             );
             maxErrorY.add(
                     BigDecimal.valueOf(ErrorUtils.getMaxYError(modelTraysVolterra, (t) -> -t / 3.0))
-                            .divide(BigDecimal.valueOf(currentStep).pow(4), RoundingMode.HALF_UP)
+                            .divide(BigDecimal.valueOf(currentStep).pow(pow), RoundingMode.HALF_UP)
                             .doubleValue()
             );
         }
 
         List<SimpleLine> simpleLines = new ArrayList<>();
         simpleLines.add(
-                new SimpleLine("Жертвы",
+                new SimpleLine("Жертвы(X)",
                         Color.BLUE,
                         stepList,
                         maxErrorX
@@ -151,20 +162,23 @@ public class NumericalMethodsDouble implements NumericalMethods {
         );
 
         simpleLines.add(
-                new SimpleLine("Хищники",
+                new SimpleLine("Хищники(Y)",
                         Color.RED,
                         stepList,
                         maxErrorY
                 )
         );
 
-        LineGraph lineGraph = new LineGraph(simpleLines, "Шаг h", "Ошибка: e/h^4", "Зависимость ошибки от шага h^4", true);
+        LineGraphChart lineGraph = new LineGraphChart(simpleLines, "Шаг h", "Ошибка: e/h^4", "Зависимость ошибки от шага h^4", true);
+        lineGraph.pack();
         lineGraph.setVisible(true);
     }
 
-    public void studySchedule(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step) {
+    public void studyScheduleAndShowDialog(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step, JFrame jFrame) {
 
-        for (double currentA = a; currentA > lastA; currentA -= aStep) {
+        LinkedHashMap<Double,  List<SimpleLine>> simpleLinesOfA = new LinkedHashMap<>();
+
+        for (double currentA = a; currentA > lastA; currentA += aStep) {
             Argument<Row<Double>> zeroState = new ArgumentImpl(
                     new Row<Double>(xStart, yStart)
             );
@@ -180,18 +194,20 @@ public class NumericalMethodsDouble implements NumericalMethods {
                     new SimpleLine("X/Y",
                             Color.BLUE,
                             modelTraysVolterra.getValues()
-                                    .stream().map(e -> e.getX())
+                                    .stream().map(Row::getX)
                                     .collect(Collectors.toList()),
                             modelTraysVolterra.getValues()
-                                    .stream().map(e -> e.getY())
-                                    .collect(Collectors.toList())
+                                    .stream().map(Row::getY)
+                                    .collect(Collectors.toList()),
+                            modelTraysVolterra.getTime()
                     )
             );
-
-
-            LineGraph lineGraph = new LineGraph(simpleLines, "X", "Y", "Зависимость X/Y", false);
-            lineGraph.setLine(false);
-            lineGraph.setVisible(true);
+            simpleLinesOfA.put(currentA, simpleLines);
         }
+
+        LineAnimatedGraphChart lineGraph = new LineAnimatedGraphChart(simpleLinesOfA, "Жертв(X)", "Хищников(Y)", "Зависимость X/Y", false);
+        lineGraph.setLine(false);
+        lineGraph.pack();
+        lineGraph.setVisible(true);
     }
 }

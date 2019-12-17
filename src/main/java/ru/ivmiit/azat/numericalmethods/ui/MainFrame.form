@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ru.ivmiit.azat.numericalmethods.Frame">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ru.ivmiit.azat.numericalmethods.ui.MainFrame">
   <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+    <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="48" y="54" width="486" height="657"/>
+      <xy x="48" y="54" width="518" height="771"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -13,7 +13,9 @@
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-2763307"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="415f1" class="javax.swing.JLabel">
@@ -27,12 +29,14 @@
         </children>
       </grid>
       <grid id="39bcb" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+        <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
-        <border type="none"/>
+        <border type="line">
+          <color color="-16777216"/>
+        </border>
         <children>
           <component id="273f1" class="javax.swing.JLabel">
             <constraints>
@@ -50,17 +54,17 @@
               <text value="Конец времени t"/>
             </properties>
           </component>
-          <component id="11ef2" class="javax.swing.JTextField" default-binding="true">
+          <component id="11ef2" class="javax.swing.JTextField" binding="chartIterationCountTextField">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
             <properties>
-              <text value="1000"/>
+              <text value="100"/>
             </properties>
           </component>
-          <component id="ee8eb" class="javax.swing.JTextField" default-binding="true">
+          <component id="ee8eb" class="javax.swing.JTextField" binding="chartEndTimeTextField">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -70,7 +74,7 @@
               <text value="-1"/>
             </properties>
           </component>
-          <component id="caf5c" class="javax.swing.JTextField" default-binding="true">
+          <component id="caf5c" class="javax.swing.JTextField" binding="chartStartTimeTextField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -96,7 +100,7 @@
               <text value="Действия"/>
             </properties>
           </component>
-          <grid id="752d1" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="752d1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -104,20 +108,12 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="d1cd" class="javax.swing.JButton" binding="построитьГрафикСравненияButton" default-binding="true">
+              <component id="d1cd" class="javax.swing.JButton" binding="createComparisonChartButton">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Построить график сравнения"/>
-                </properties>
-              </component>
-              <component id="202b6" class="javax.swing.JButton" default-binding="true">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Исходный график"/>
                 </properties>
               </component>
             </children>
@@ -129,17 +125,21 @@
         <constraints>
           <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-2763307"/>
+        </properties>
         <border type="none"/>
         <children/>
       </grid>
-      <grid id="c7d88" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+      <grid id="c7d88" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
-        <border type="none"/>
+        <border type="line">
+          <color color="-16777216"/>
+        </border>
         <children>
           <component id="76408" class="javax.swing.JLabel">
             <constraints>
@@ -157,7 +157,7 @@
               <text value="Конец времени t"/>
             </properties>
           </component>
-          <component id="73e5a" class="javax.swing.JTextField" default-binding="true">
+          <component id="73e5a" class="javax.swing.JTextField" binding="errorChartStartHValueTextField">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -167,7 +167,7 @@
               <text value="1"/>
             </properties>
           </component>
-          <component id="41cbd" class="javax.swing.JTextField" default-binding="true">
+          <component id="41cbd" class="javax.swing.JTextField" binding="errorChartEndTimeTextField">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -177,7 +177,7 @@
               <text value="-1"/>
             </properties>
           </component>
-          <component id="f30aa" class="javax.swing.JTextField" default-binding="true">
+          <component id="f30aa" class="javax.swing.JTextField" binding="errorChartStartTimeTextField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -187,7 +187,7 @@
               <text value="-10"/>
             </properties>
           </component>
-          <component id="fddef" class="javax.swing.JTextField" default-binding="true">
+          <component id="fddef" class="javax.swing.JTextField" binding="errorChartEndHValueTextField">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -202,7 +202,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Начальный а"/>
+              <text value="Начальный шаг h (ε)"/>
             </properties>
           </component>
           <component id="63f4d" class="javax.swing.JLabel">
@@ -210,7 +210,7 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Конечный а"/>
+              <text value="Конечный шаг h (ε)"/>
             </properties>
           </component>
           <component id="b5708" class="javax.swing.JLabel">
@@ -218,10 +218,10 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Шаг"/>
+              <text value="Шаг h (ε)"/>
             </properties>
           </component>
-          <component id="45870" class="javax.swing.JTextField" default-binding="true">
+          <component id="45870" class="javax.swing.JTextField" binding="errorChartHValueStepTextField">
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -233,7 +233,7 @@
           </component>
           <component id="eaf69" class="javax.swing.JLabel">
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Действия"/>
@@ -242,38 +242,58 @@
           <grid id="da0c0" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>
             <children>
-              <component id="1f894" class="javax.swing.JButton" default-binding="true">
+              <component id="1f894" class="javax.swing.JButton" binding="createErrorChartButton">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Построить график e/h"/>
+                  <text value="Построить график e"/>
                 </properties>
               </component>
-              <component id="ee98f" class="javax.swing.JButton" default-binding="true">
+              <component id="ee98f" class="javax.swing.JButton" binding="createFourthOrderErrorGraphButton">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Построить график e/h^4"/>
+                  <text value="Построить график e/h^k"/>
                 </properties>
               </component>
             </children>
           </grid>
+          <component id="7fe33" class="javax.swing.JTextField" binding="errorChartErrorPowerTextField">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="4"/>
+            </properties>
+          </component>
+          <component id="1c132" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Степень k"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <grid id="ee52e" layout-manager="GridLayoutManager" row-count="8" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+      <grid id="ee52e" layout-manager="GridLayoutManager" row-count="9" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
-        <border type="none"/>
+        <border type="line">
+          <color color="-16777216"/>
+        </border>
         <children>
           <component id="aff73" class="javax.swing.JLabel">
             <constraints>
@@ -291,15 +311,17 @@
               <text value="Конец времени t"/>
             </properties>
           </component>
-          <component id="d824a" class="javax.swing.JTextField" default-binding="true">
+          <component id="d824a" class="javax.swing.JTextField" binding="parameterChartStartAValueTextField">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value="1"/>
+            </properties>
           </component>
-          <component id="c5003" class="javax.swing.JTextField" default-binding="true">
+          <component id="c5003" class="javax.swing.JTextField" binding="parameterChartEndTimeTextField">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -309,7 +331,7 @@
               <text value="60"/>
             </properties>
           </component>
-          <component id="317bb" class="javax.swing.JTextField" default-binding="true">
+          <component id="317bb" class="javax.swing.JTextField" binding="parameterChartStartTimeTextField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -319,13 +341,15 @@
               <text value="1"/>
             </properties>
           </component>
-          <component id="64935" class="javax.swing.JTextField" default-binding="true">
+          <component id="64935" class="javax.swing.JTextField" binding="parameterChartEndAValueTextField">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value="0.1"/>
+            </properties>
           </component>
           <component id="6d644" class="javax.swing.JLabel">
             <constraints>
@@ -343,68 +367,92 @@
               <text value="Конечное δ (δ нач &lt; δ кон)"/>
             </properties>
           </component>
-          <component id="57e85" class="javax.swing.JTextField" default-binding="true">
-            <constraints>
-              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="47a68" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="вцфцвфцв"/>
-            </properties>
-          </component>
-          <component id="e07f7" class="javax.swing.JTextField" default-binding="true">
+          <component id="57e85" class="javax.swing.JTextField" binding="parameterChartXStartValueTextField">
             <constraints>
               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value="1"/>
+            </properties>
           </component>
-          <component id="780dc" class="javax.swing.JLabel">
+          <component id="47a68" class="javax.swing.JLabel">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Конец времени t"/>
+              <text value="Жертв в начале (X)"/>
             </properties>
           </component>
-          <component id="48269" class="javax.swing.JTextField" default-binding="true">
+          <component id="48269" class="javax.swing.JTextField" binding="parameterChartYStartValueTextField">
             <constraints>
               <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value="1"/>
+            </properties>
           </component>
           <component id="306b6" class="javax.swing.JLabel">
             <constraints>
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Конец времени t"/>
+              <text value="Хищников в начале (Y)"/>
             </properties>
           </component>
-          <component id="cb1ef" class="javax.swing.JTextField" default-binding="true">
+          <component id="f186c" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Шаг δ"/>
+            </properties>
+          </component>
+          <component id="cb1ef" class="javax.swing.JTextField" binding="parameterChartStepAValueTextField">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="-0.05"/>
+            </properties>
+          </component>
+          <component id="28649" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Шаг h (ε)"/>
+            </properties>
+          </component>
+          <component id="c1f91" class="javax.swing.JTextField" binding="parameterChartStepValueTextField">
             <constraints>
               <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value="0.05"/>
+            </properties>
           </component>
-          <component id="f186c" class="javax.swing.JLabel">
+          <component id="e1b10" class="javax.swing.JLabel">
             <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Конец времени t"/>
+              <text value="Действия"/>
+            </properties>
+          </component>
+          <component id="dcdd4" class="javax.swing.JButton" binding="createDependencyChartButton">
+            <constraints>
+              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Построить график зависимости X/Y от δ"/>
             </properties>
           </component>
         </children>
@@ -414,7 +462,9 @@
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-2763307"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="74410" class="javax.swing.JLabel">
@@ -432,7 +482,9 @@
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-2763307"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="a5cee" class="javax.swing.JLabel">
