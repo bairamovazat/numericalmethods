@@ -78,9 +78,30 @@ public class NumericalMethodsDoubleForChart implements NumericalMethodsForChart 
                                 .collect(Collectors.toList())
                 )
         );
+
+        System.out.println("Время\tПолученное решение x\tПолученное решение y\tТочное решение x\tТочное решение x\tОшибка x\tОшибка y");
+        for (int i = 0; i < modelTraysVolterra.getTime().size(); i++) {
+            Double time = modelTraysVolterra.getTime().get(i);
+            Double x = modelTraysVolterra.getValues().get(i).getX();
+            Double y = modelTraysVolterra.getValues().get(i).getY();
+            Double trueX = (modelTraysVolterra.getTime().get(i) / 3);
+            Double trueY = (modelTraysVolterra.getTime().get(i) / -3);
+
+            System.out.println(
+                    time + "\t" +
+                            x + "\t" +
+                            y + "\t" +
+                            trueX + "\t" +
+                            trueY + "\t" +
+                            Math.abs(x - trueX ) + "\t" +
+                            Math.abs(y - trueY)
+            );
+        }
+
         LineGraphChart lineGraph = new LineGraphChart(simpleLines, "Время", "Численность", "Зависимость численности от времени для тестовой задачи", true);
         lineGraph.pack();
         lineGraph.setVisible(true);
+
 
     }
 
@@ -176,7 +197,7 @@ public class NumericalMethodsDoubleForChart implements NumericalMethodsForChart 
 
     public void studyScheduleAndShowDialog(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step, JFrame jFrame) {
 
-        LinkedHashMap<Double,  List<SimpleLine>> simpleLinesOfA = new LinkedHashMap<>();
+        LinkedHashMap<Double, List<SimpleLine>> simpleLinesOfA = new LinkedHashMap<>();
 
         for (double currentA = a; currentA > lastA; currentA += aStep) {
             Argument<Row<Double>> zeroState = new ArgumentImpl(
@@ -206,7 +227,80 @@ public class NumericalMethodsDoubleForChart implements NumericalMethodsForChart 
         }
 
         LineAnimatedGraphChart lineGraph = new LineAnimatedGraphChart(simpleLinesOfA, "Жертв(X)", "Хищников(Y)", "Зависимость X/Y", false);
-        lineGraph.setLine(false);
+        lineGraph.setLine(true);
+        lineGraph.pack();
+        lineGraph.setVisible(true);
+    }
+
+
+    @Override
+    public void studyScheduleXAndShowDialog(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step, JFrame jFrame) {
+
+        LinkedHashMap<Double, List<SimpleLine>> simpleLinesOfA = new LinkedHashMap<>();
+
+        for (double currentA = a; currentA > lastA; currentA += aStep) {
+            Argument<Row<Double>> zeroState = new ArgumentImpl(
+                    new Row<Double>(xStart, yStart)
+            );
+
+            Function<Row<Double>> rowFunction = new UnsizedFunction(currentA);
+            CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
+            ModelTraysVolterra<Row<Double>> modelTraysVolterra = new ModelTraysVolterra<>(chekinskyMethod, zeroState);
+
+            modelTraysVolterra.calculate(startTime, endTime, step);
+
+            List<SimpleLine> simpleLines = new ArrayList<>();
+            simpleLines.add(
+                    new SimpleLine("X/t",
+                            Color.BLUE,
+                            modelTraysVolterra.getTime(),
+                            modelTraysVolterra.getValues()
+                                    .stream().map(Row::getX)
+                                    .collect(Collectors.toList()),
+                            modelTraysVolterra.getTime()
+                    )
+            );
+            simpleLinesOfA.put(currentA, simpleLines);
+        }
+
+        LineAnimatedGraphChart lineGraph = new LineAnimatedGraphChart(simpleLinesOfA, "Время(t)", "Жертв(X)", "Зависимость X/t", false);
+        lineGraph.setLine(true);
+        lineGraph.pack();
+        lineGraph.setVisible(true);
+    }
+
+    @Override
+    public void studyScheduleYAndShowDialog(double a, double lastA, double aStep, double xStart, double yStart, double startTime, double endTime, double step, JFrame jFrame) {
+
+        LinkedHashMap<Double, List<SimpleLine>> simpleLinesOfA = new LinkedHashMap<>();
+
+        for (double currentA = a; currentA > lastA; currentA += aStep) {
+            Argument<Row<Double>> zeroState = new ArgumentImpl(
+                    new Row<Double>(xStart, yStart)
+            );
+
+            Function<Row<Double>> rowFunction = new UnsizedFunction(currentA);
+            CauchysProblemMethod<Row<Double>> chekinskyMethod = new CheskinoMethod<>(rowFunction);
+            ModelTraysVolterra<Row<Double>> modelTraysVolterra = new ModelTraysVolterra<>(chekinskyMethod, zeroState);
+
+            modelTraysVolterra.calculate(startTime, endTime, step);
+
+            List<SimpleLine> simpleLines = new ArrayList<>();
+            simpleLines.add(
+                    new SimpleLine("Y/t",
+                            Color.BLUE,
+                            modelTraysVolterra.getTime(),
+                            modelTraysVolterra.getValues()
+                                    .stream().map(Row::getY)
+                                    .collect(Collectors.toList()),
+                            modelTraysVolterra.getTime()
+                    )
+            );
+            simpleLinesOfA.put(currentA, simpleLines);
+        }
+
+        LineAnimatedGraphChart lineGraph = new LineAnimatedGraphChart(simpleLinesOfA, "Время(t)", "Хищников(Y)", "Зависимость Y/t", false);
+        lineGraph.setLine(true);
         lineGraph.pack();
         lineGraph.setVisible(true);
     }

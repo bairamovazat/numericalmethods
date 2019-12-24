@@ -70,7 +70,7 @@ public abstract class AbstractLineGraphChart extends JDialog {
 
     protected JFreeChart createChart(XYDataset dataset) {
 
-        JFreeChart chart = ChartFactory.createXYLineChart(
+        JFreeChart chart = ChartFactory.createXYStepAreaChart(
                 title,
                 xName,
                 yName,
@@ -87,16 +87,19 @@ public abstract class AbstractLineGraphChart extends JDialog {
             XYDotRenderer renderer = new XYDotRenderer();
             for (int i = 0; i < simpleLines.size(); i++) {
                 renderer.setSeriesPaint(i, simpleLines.get(i).getColor());
-                renderer.setSeriesStroke(i, new BasicStroke(2.0f));
-                renderer.setDotHeight(3);
-                renderer.setDotWidth(3);
+                renderer.setSeriesStroke(i, new BasicStroke(1f));
+                renderer.setDotHeight(1);
+                renderer.setDotWidth(1);
             }
             plot.setRenderer(renderer);
         } else {
             XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
             for (int i = 0; i < simpleLines.size(); i++) {
                 renderer.setSeriesPaint(i, simpleLines.get(i).getColor());
-                renderer.setSeriesStroke(i, new BasicStroke(2.0f));
+                renderer.setSeriesStroke(i, new BasicStroke(2f));
+                renderer.setSeriesStroke(i, new BasicStroke(2f));
+                Rectangle rect = new Rectangle(1, 1);
+                renderer.setSeriesShape(i, rect);
             }
             plot.setRenderer(renderer);
         }

@@ -49,7 +49,7 @@ public class SimpleLine {
      * @return
      */
     public XYSeries toXYSeries(Double maxXToSeries) {
-        XYSeries series = new XYSeries(name);
+        XYSeries series = new XYSeries(name, false);
         for (int i = 0; i < x.size(); i++) {
             if (maxXToSeries == null || time.get(i) <= maxXToSeries) {
                 series.add(x.get(i), y.get(i));

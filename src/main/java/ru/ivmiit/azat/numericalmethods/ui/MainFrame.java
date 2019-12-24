@@ -55,6 +55,8 @@ public class MainFrame extends JFrame {
     private JTextField parameterChartYStartValueTextField;
     //Шаг h (ε)
     private JTextField parameterChartStepValueTextField;
+    private JButton createDependencyChartXButton;
+    private JButton createDependencyChartYButton;
 
     private NumericalMethodsForChart methodsForChart;
 
@@ -66,6 +68,9 @@ public class MainFrame extends JFrame {
         this.createErrorChartButton.addActionListener(this::createErrorChart);
         this.createFourthOrderErrorGraphButton.addActionListener(this::createFourthOrderErrorGraph);
         this.createDependencyChartButton.addActionListener(this::createDependencyChart);
+        this.createDependencyChartXButton.addActionListener(this::createDependencyChartX);
+        this.createDependencyChartYButton.addActionListener(this::createDependencyChartY);
+
         methodsForChart = new NumericalMethodsDoubleForChart();
     }
 
@@ -174,6 +179,77 @@ public class MainFrame extends JFrame {
 
     }
 
+    private void createDependencyChartY(ActionEvent actionEvent) {
+        //Начало времени t
+        String parameterChartStartTimeText = parameterChartStartTimeTextField.getText();
+        //Конец времени t
+        String parameterChartEndTimeText = parameterChartEndTimeTextField.getText();
+        //Начальное δ
+        String parameterChartStartAValueText = parameterChartStartAValueTextField.getText();
+        //Конечное δ (δ нач < δ кон)
+        String parameterChartEndAValueText = parameterChartEndAValueTextField.getText();
+        //Шаг δ
+        String parameterChartStepAValueText = parameterChartStepAValueTextField.getText();
+        //Хищников в начале (X)
+        String parameterChartXStartValueText = parameterChartXStartValueTextField.getText();
+        //Жертв в начале (Y)
+        String parameterChartYStartValueText = parameterChartYStartValueTextField.getText();
+        //Шаг h (ε)
+        String parameterChartStepValueText = parameterChartStepValueTextField.getText();
+
+        Double parameterChartStartTime = Double.parseDouble(parameterChartStartTimeText);
+        Double parameterChartEndTime = Double.parseDouble(parameterChartEndTimeText);
+        Double parameterChartStartAValue = Double.parseDouble(parameterChartStartAValueText);
+        Double parameterChartEndAValue = Double.parseDouble(parameterChartEndAValueText);
+        Double parameterChartStepAValue = Double.parseDouble(parameterChartStepAValueText);
+        Double parameterChartXStartValue = Double.parseDouble(parameterChartXStartValueText);
+        Double parameterChartYStartValue = Double.parseDouble(parameterChartYStartValueText);
+        Double parameterChartStepValue = Double.parseDouble(parameterChartStepValueText);
+
+        methodsForChart.studyScheduleYAndShowDialog(
+                parameterChartStartAValue, parameterChartEndAValue, parameterChartStepAValue,
+                parameterChartXStartValue, parameterChartYStartValue,
+                parameterChartStartTime, parameterChartEndTime, parameterChartStepValue,
+                this
+        );
+    }
+
+    private void createDependencyChartX(ActionEvent actionEvent) {
+        //Начало времени t
+        String parameterChartStartTimeText = parameterChartStartTimeTextField.getText();
+        //Конец времени t
+        String parameterChartEndTimeText = parameterChartEndTimeTextField.getText();
+        //Начальное δ
+        String parameterChartStartAValueText = parameterChartStartAValueTextField.getText();
+        //Конечное δ (δ нач < δ кон)
+        String parameterChartEndAValueText = parameterChartEndAValueTextField.getText();
+        //Шаг δ
+        String parameterChartStepAValueText = parameterChartStepAValueTextField.getText();
+        //Хищников в начале (X)
+        String parameterChartXStartValueText = parameterChartXStartValueTextField.getText();
+        //Жертв в начале (Y)
+        String parameterChartYStartValueText = parameterChartYStartValueTextField.getText();
+        //Шаг h (ε)
+        String parameterChartStepValueText = parameterChartStepValueTextField.getText();
+
+        Double parameterChartStartTime = Double.parseDouble(parameterChartStartTimeText);
+        Double parameterChartEndTime = Double.parseDouble(parameterChartEndTimeText);
+        Double parameterChartStartAValue = Double.parseDouble(parameterChartStartAValueText);
+        Double parameterChartEndAValue = Double.parseDouble(parameterChartEndAValueText);
+        Double parameterChartStepAValue = Double.parseDouble(parameterChartStepAValueText);
+        Double parameterChartXStartValue = Double.parseDouble(parameterChartXStartValueText);
+        Double parameterChartYStartValue = Double.parseDouble(parameterChartYStartValueText);
+        Double parameterChartStepValue = Double.parseDouble(parameterChartStepValueText);
+
+        methodsForChart.studyScheduleXAndShowDialog(
+                parameterChartStartAValue, parameterChartEndAValue, parameterChartStepAValue,
+                parameterChartXStartValue, parameterChartYStartValue,
+                parameterChartStartTime, parameterChartEndTime, parameterChartStepValue,
+                this
+        );
+    }
+
+
     public static void main(String[] args) {
         MainFrame dialog = new MainFrame();
         dialog.pack();
@@ -219,7 +295,7 @@ public class MainFrame extends JFrame {
         chartIterationCountTextField.setText("100");
         panel2.add(chartIterationCountTextField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         chartEndTimeTextField = new JTextField();
-        chartEndTimeTextField.setText("-1");
+        chartEndTimeTextField.setText("-5");
         panel2.add(chartEndTimeTextField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         chartStartTimeTextField = new JTextField();
         chartStartTimeTextField.setText("-10");
@@ -254,7 +330,7 @@ public class MainFrame extends JFrame {
         errorChartStartHValueTextField.setText("1");
         panel5.add(errorChartStartHValueTextField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         errorChartEndTimeTextField = new JTextField();
-        errorChartEndTimeTextField.setText("-1");
+        errorChartEndTimeTextField.setText("-5");
         panel5.add(errorChartEndTimeTextField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         errorChartStartTimeTextField = new JTextField();
         errorChartStartTimeTextField.setText("-10");
@@ -293,7 +369,7 @@ public class MainFrame extends JFrame {
         label12.setText("Степень k");
         panel5.add(label12, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel7 = new JPanel();
-        panel7.setLayout(new GridLayoutManager(9, 2, new Insets(5, 5, 5, 5), -1, -1));
+        panel7.setLayout(new GridLayoutManager(11, 2, new Insets(5, 5, 5, 5), -1, -1));
         contentPane.add(panel7, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel7.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-16777216)), null));
         final JLabel label13 = new JLabel();
@@ -350,6 +426,12 @@ public class MainFrame extends JFrame {
         createDependencyChartButton = new JButton();
         createDependencyChartButton.setText("Построить график зависимости X/Y от δ");
         panel7.add(createDependencyChartButton, new GridConstraints(8, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        createDependencyChartXButton = new JButton();
+        createDependencyChartXButton.setText("Построить график зависимости X/t от δ");
+        panel7.add(createDependencyChartXButton, new GridConstraints(9, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        createDependencyChartYButton = new JButton();
+        createDependencyChartYButton.setText("Построить график зависимости Y/t от δ");
+        panel7.add(createDependencyChartYButton, new GridConstraints(10, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel8 = new JPanel();
         panel8.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel8.setBackground(new Color(-2763307));
