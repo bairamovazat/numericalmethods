@@ -1,7 +1,7 @@
 package ru.ivmiit.azat.numericalmethods;
 
 import ru.ivmiit.azat.numericalmethods.function.Function;
-import ru.ivmiit.azat.numericalmethods.function.FunctionImpl;
+import ru.ivmiit.azat.numericalmethods.function.MyFunctionImpl;
 import ru.ivmiit.azat.numericalmethods.function.UnsizedFunction;
 import ru.ivmiit.azat.numericalmethods.graph.LineGraph;
 import ru.ivmiit.azat.numericalmethods.graph.SimpleLine;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class NumericalMethodsDouble implements NumericalMethods {
-    private Function<Row<Double>> rowFunction = new FunctionImpl();
+    private Function<Row<Double>> rowFunction = new MyFunctionImpl();
     private CauchysProblemMethod<Row<Double>> problemMethod = new CheskinoMethod<>(rowFunction);
 
     //Нарисовать график для тестирования

@@ -1,9 +1,7 @@
 package ru.ivmiit.azat.numericalmethods;
 
 import ru.ivmiit.azat.numericalmethods.function.Function;
-import ru.ivmiit.azat.numericalmethods.function.FunctionImpl;
 import ru.ivmiit.azat.numericalmethods.function.FusionReactorFunctionImpl;
-import ru.ivmiit.azat.numericalmethods.function.UnsizedFunction;
 import ru.ivmiit.azat.numericalmethods.graph.LineGraph;
 import ru.ivmiit.azat.numericalmethods.graph.SimpleLine;
 import ru.ivmiit.azat.numericalmethods.methods.CauchysProblemMethod;
